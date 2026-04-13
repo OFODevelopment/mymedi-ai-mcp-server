@@ -95,5 +95,35 @@ for (const tool of MCP_TOOLS) {
   );
 }
 
-const transport = new StdioServerTransport();
-await server.connect(transport);
+// Smithery sandbox support — allows scanning tools without real credentials
+export function createSandboxServer() {
+  const sandboxServer = new McpServer({
+    name: 'mymedi-ai',
+    version: '1.0.0',
+  });
+
+  for (const tool of MCP_TOOLS) {
+    sandboxServer.tool(
+      tool.name,
+      tool.description,
+      tool.schema,
+      async () => ({ content: [{ type: 'text', text: 'sandbox' }] }),
+    );
+  }
+
+  return sandboxServer;
+}
+
+async function main() {
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
+}
+
+// Only auto-connect when run directly (not imported for scanning)
+const isDirectRun = process.argv[1] && (
+  process.argv[1].endsWith('index.js') ||
+  process.argv[1].endsWith('mymedi-ai-mcp')
+);
+if (isDirectRun) {
+  main();
+}

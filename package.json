@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "MCP server for healthcare AI — medical coding, prior auth, NER, claims validation, HIPAA compliance. 12 tools, pay-per-call via credits or USDC.",
   "type": "module",
+  "main": "./src/index.js",
+  "module": "./src/index.js",
   "bin": {
     "mymedi-ai-mcp": "./src/index.js"
   },
@@ -39,6 +41,6 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.27.1",
-    "zod": "^4.3.6"
+    "zod": "^3.23.8"
   }
 }
