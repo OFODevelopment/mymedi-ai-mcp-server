@@ -1,7 +1,7 @@
 {
   "name": "@mymedi-ai/mcp-server",
-  "version": "1.0.0",
-  "description": "MCP server for healthcare AI — medical coding, prior auth, NER, claims validation, HIPAA compliance. 12 tools, pay-per-call via credits or USDC.",
+  "version": "1.2.0",
+  "description": "MCP server for healthcare AI — medical coding, drug intelligence, reimbursement rates, clinical trials, physician payments, disease surveillance, prior auth, NER, claims validation, HIPAA compliance. 20 tools, pay-per-call via credits or USDC.",
   "type": "module",
   "main": "./src/index.js",
   "module": "./src/index.js",
@@ -34,9 +34,6 @@
     "type": "git",
     "url": "https://gitlab.com/rixter21/MediCode",
     "directory": "packages/mcp-server"
-  },
-  "scripts": {
-    "build": "echo 'No build needed'"
   },
   "homepage": "https://mymedi-ai.com",
   "engines": {

@@ -110,6 +110,101 @@ export const MCP_TOOLS = [
     },
   },
 
+  // --- Drug Intelligence (OpenFDA — free, no license) ---
+  {
+    name: 'drug_lookup',
+    description: 'Look up drug information including label data, adverse events, and related diagnosis codes. Source: OpenFDA (public domain).',
+    price: '$0.01',
+    endpoint: '/agent/v1/drugs/lookup',
+    schema: {
+      drugName: z.string().describe('Drug name (brand, generic, or substance — min 2 chars)'),
+      searchField: z.enum(['brand_name', 'generic_name', 'product_ndc', 'substance_name']).optional().describe('Search field (default: brand_name)'),
+    },
+  },
+  {
+    name: 'drug_interactions',
+    description: 'Check drug-drug interaction signals from FDA adverse event co-reports. Returns co-reported reactions and signal strength. Source: OpenFDA FAERS (public domain).',
+    price: '$0.03',
+    endpoint: '/agent/v1/drugs/interactions',
+    schema: {
+      drugs: z.array(z.string()).min(2).max(5).describe('Array of 2-5 drug names to check for interactions'),
+    },
+  },
+
+  // --- Reimbursement Rates (CMS PFS — public domain) ---
+  {
+    name: 'code_reimbursement',
+    description: 'Look up Medicare reimbursement rates for a medical code. Returns RVU values and estimated payment amounts using CMS PFS conversion factor. Source: CMS PFS RVU 2026 (public domain).',
+    price: '$0.01',
+    endpoint: '/agent/v1/codes/reimbursement',
+    schema: {
+      code: z.string().describe('Medical code (e.g., "99213", "M79.3")'),
+      codeType: z.enum(['ICD10', 'CPT', 'HCPCS']).optional().describe('Code system (auto-detected if omitted)'),
+    },
+  },
+
+  // --- Clinical Trials (ClinicalTrials.gov — free, no license) ---
+  {
+    name: 'trials_search',
+    description: 'Search active clinical trials by condition, ICD-10 code, or intervention. Returns trial details including NCT ID, phase, enrollment, and eligibility. Source: ClinicalTrials.gov (public domain).',
+    price: '$0.03',
+    endpoint: '/agent/v1/trials/search',
+    schema: {
+      condition: z.string().optional().describe('Medical condition to search for'),
+      code: z.string().optional().describe('ICD-10 code (auto-mapped to condition)'),
+      intervention: z.string().optional().describe('Drug or intervention name'),
+      status: z.enum(['RECRUITING', 'ACTIVE_NOT_RECRUITING', 'COMPLETED', 'NOT_YET_RECRUITING']).optional().describe('Trial status filter (default: RECRUITING)'),
+      limit: z.number().optional().describe('Max results (default 10, max 50)'),
+    },
+  },
+
+  // --- Code Cross-Reference ---
+  {
+    name: 'code_crossref',
+    description: 'Cross-reference a medical code across ICD-10, CPT, and HCPCS systems. Returns related codes grouped by system. Source: CodeReference DB (ICD-10/HCPCS: public domain).',
+    price: '$0.02',
+    endpoint: '/agent/v1/codes/crossref',
+    schema: {
+      code: z.string().describe('Medical code to cross-reference (e.g., "M79.3", "99213", "E0601")'),
+    },
+  },
+
+  // --- RxNorm Drug Lookup (NIH — free, no license) ---
+  {
+    name: 'drug_rxnorm',
+    description: 'Look up a drug in NIH RxNorm for normalized terminology (RxCUI) and optionally check clinical drug-drug interactions with severity ratings. Source: NIH RxNorm (public domain).',
+    price: '$0.02',
+    endpoint: '/agent/v1/drugs/rxnorm',
+    schema: {
+      drugName: z.string().describe('Drug name to look up (min 2 chars)'),
+      checkInteractions: z.array(z.string()).optional().describe('Other drug names to check for clinical interactions against the primary drug'),
+    },
+  },
+
+  // --- Physician Payments (CMS Open Payments — free, no license) ---
+  {
+    name: 'provider_payments',
+    description: 'Look up pharmaceutical and device company payments to a physician (Sunshine Act data). Returns total payments, breakdown by type, and top paying companies. Source: CMS Open Payments (public domain).',
+    price: '$0.02',
+    endpoint: '/agent/v1/providers/payments',
+    schema: {
+      npi: z.string().describe('10-digit NPI number of the physician'),
+    },
+  },
+
+  // --- Disease Surveillance (CDC NNDSS — free, no license) ---
+  {
+    name: 'disease_surveillance',
+    description: 'Look up disease surveillance data including case counts and trends by condition and geography. Source: CDC National Notifiable Diseases Surveillance System (public domain).',
+    price: '$0.02',
+    endpoint: '/agent/v1/surveillance/disease',
+    schema: {
+      condition: z.string().optional().describe('Disease or condition name (e.g., "Hepatitis A", "Salmonellosis")'),
+      code: z.string().optional().describe('ICD-10 code (auto-mapped to condition name)'),
+      state: z.string().optional().describe('2-letter state code to filter by geography'),
+    },
+  },
+
   // --- Data Enrichment ---
   {
     name: 'provider_search',
