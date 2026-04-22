@@ -42,5 +42,8 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.27.1",
     "zod": "^3.23.8"
+  },
+  "scripts": {
+    "build": "echo 'No build step required — MCP server runs directly from src/index.js'"
   }
 }
