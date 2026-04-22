@@ -1,6 +1,6 @@
 {
   "name": "@mymedi-ai/mcp-server",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "MCP server for healthcare AI — medical coding, drug intelligence, reimbursement rates, clinical trials, physician payments, disease surveillance, prior auth, NER, claims validation, HIPAA compliance. 20 tools, pay-per-call via credits or USDC.",
   "type": "module",
   "main": "./src/index.js",
