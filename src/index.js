@@ -15,7 +15,7 @@ const API_KEY = process.env.MCP_API_KEY || '';
 const server = createMcpServer();
 
 function createMcpServer() {
-  const s = new McpServer({ name: 'mymedi-ai', version: '1.2.0' });
+  const s = new McpServer({ name: 'mymedi-ai', version: '1.2.1' });
   for (const tool of MCP_TOOLS) {
     s.tool(tool.name, tool.description, tool.schema, async (params) => {
       const toolDef = getToolByName(tool.name);
@@ -29,7 +29,7 @@ function createMcpServer() {
             'Content-Type': 'application/json',
             ...(API_KEY && { 'X-API-Key': API_KEY }),
             'X-Agent-ID': 'mcp-client',
-            'User-Agent': '@mymedi-ai/mcp-server/1.2',
+            'User-Agent': '@mymedi-ai/mcp-server/1.2.1',
           },
           body: JSON.stringify(params),
         });
@@ -38,7 +38,7 @@ function createMcpServer() {
           return {
             content: [{ type: 'text', text: JSON.stringify({
               error: 'payment_required',
-              message: `This tool costs ${toolDef.price} per call. Register at ${API_BASE_URL}/bot-marketplace/register for an API key with 100 free starter credits.`,
+              message: `This tool costs ${toolDef.price} per call. Register at ${API_BASE_URL}/bot-marketplace/register for an API key with 10 free starter credits, or pay per call with on-chain USDC (no signup) via the x402 protocol.`,
               price: toolDef.price, register: `${API_BASE_URL}/bot-marketplace/register`, ...paymentInfo,
             }, null, 2) }], isError: true,
           };
@@ -64,7 +64,7 @@ function createMcpServer() {
 
 // Smithery sandbox support — allows scanning tools without real credentials
 export function createSandboxServer() {
-  const sandboxServer = new McpServer({ name: 'mymedi-ai', version: '1.2.0' });
+  const sandboxServer = new McpServer({ name: 'mymedi-ai', version: '1.2.1' });
   for (const tool of MCP_TOOLS) {
     sandboxServer.tool(tool.name, tool.description, tool.schema,
       async () => ({ content: [{ type: 'text', text: 'sandbox' }] }));
