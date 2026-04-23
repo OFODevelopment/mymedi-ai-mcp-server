@@ -1,7 +1,7 @@
 {
   "name": "@mymedi-ai/mcp-server",
   "version": "1.2.1",
-  "description": "MCP server for healthcare AI — medical coding, drug intelligence, reimbursement rates, clinical trials, physician payments, disease surveillance, prior auth, NER, claims validation, HIPAA compliance. 20 tools, pay-per-call via credits or USDC.",
+  "description": "MCP server for healthcare AI \u2014 medical coding, drug intelligence, reimbursement rates, clinical trials, physician payments, disease surveillance, prior auth, NER, claims validation, HIPAA compliance. 20 tools, pay-per-call via credits or USDC.",
   "type": "module",
   "main": "./src/index.js",
   "module": "./src/index.js",
@@ -32,8 +32,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/rixter21/MediCode",
-    "directory": "packages/mcp-server"
+    "url": "git+https://github.com/MyMedi-AI/mymedi-ai-mcp-server.git"
   },
   "homepage": "https://mymedi-ai.com",
   "engines": {
@@ -44,6 +43,9 @@
     "zod": "^3.23.8"
   },
   "scripts": {
-    "build": "echo 'No build step required — MCP server runs directly from src/index.js'"
+    "build": "echo 'No build step required \u2014 MCP server runs directly from src/index.js'"
+  },
+  "bugs": {
+    "url": "https://github.com/MyMedi-AI/mymedi-ai-mcp-server/issues"
   }
 }
